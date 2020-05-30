@@ -177,6 +177,10 @@ class Store {
     return this._oplog
   }
 
+  get replicator () {
+    return this._replicator
+  }
+
   /**
    * Returns the database's current replication status information
    * @return {[Object]} [description]
