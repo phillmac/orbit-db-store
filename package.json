@@ -23,7 +23,7 @@
   "author": "Haad",
   "license": "MIT",
   "dependencies": {
-    "ipfs-log": "~4.6.0",
+    "ipfs-log": "github:phillmac/ipfs-log",
     "it-to-stream": "^0.1.1",
     "logplease": "^1.2.14",
     "orbit-db-io": "~0.2.0",
