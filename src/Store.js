@@ -140,12 +140,12 @@ class Store {
           // logger.debug(`<replicated>`)
           this.events.emit('replicated', this.address.toString(), logs.length)
         } catch (e) {
-          console.error(e)
+          logger.error(e)
         }
       }
       this._replicator.on('load.end', onLoadCompleted)
     } catch (e) {
-      console.error('Store Error:', e)
+      logger.error('Store Error:', e)
     }
     this.events.on('replicated.progress', (address, hash, entry, progress, have) => {
       this._procEntry(entry)
@@ -310,7 +310,7 @@ class Store {
 
     const saveToIpfs = async (head) => {
       if (!head) {
-        console.warn("Warning: Given input entry was 'null'.")
+        logger.warn("Warning: Given input entry was 'null'.")
         return Promise.resolve(null)
       }
 
@@ -319,7 +319,7 @@ class Store {
 
       const canAppend = await this.access.canAppend(head, identityProvider)
       if (!canAppend) {
-        console.warn('Warning: Given input entry is not allowed in this log and was discarded (no write access).')
+        logger.warn('Warning: Given input entry is not allowed in this log and was discarded (no write access).')
         return Promise.resolve(null)
       }
 
@@ -327,7 +327,7 @@ class Store {
       const hash = await io.write(this._ipfs, Entry.getWriteFormat(logEntry), logEntry, { links: Entry.IPLD_LINKS, onlyHash: true })
 
       if (hash !== head.hash) {
-        console.warn('"WARNING! Head hash didn\'t match the contents')
+        logger.warn('"WARNING! Head hash didn\'t match the contents')
       }
 
       return head
