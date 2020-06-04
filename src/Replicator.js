@@ -106,7 +106,7 @@ class Replicator extends EventEmitter {
 
       setTimeout(() => this._processQueue(), 0)
     } catch (e) {
-      console.error(e)
+      logger.error(e)
     }
   }
 
