@@ -276,6 +276,7 @@ class Store {
       length: amount,
       exclude: this._oplog.values,
       onProgressCallback: this._onLoadProgress.bind(this),
+      onStartProgressCallback: this._onStartProgress.bind(this),
       timeout: fetchEntryTimeout
     })
 
@@ -561,6 +562,9 @@ class Store {
       this.events.emit('log.op.none', this.address.toString(), hash, payload)
     }
     this.events.emit('log.op', op, this.address.toString(), hash, payload)
+  }
+  _onStartProgress (hash, entry, progress, total) {
+    this.events.emit('load.progress.start', this.address.toString(), hash, entry, this.replicationStatus.progress, this.replicationStatus.max)
   }
 
   _onLoadProgress (hash, entry, progress, total) {
