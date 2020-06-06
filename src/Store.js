@@ -563,6 +563,7 @@ class Store {
     }
     this.events.emit('log.op', op, this.address.toString(), hash, payload)
   }
+
   _onStartProgress (hash, entry, progress, total) {
     this.events.emit('load.progress.start', this.address.toString(), hash, entry, this.replicationStatus.progress, this.replicationStatus.max)
   }
