@@ -100,7 +100,7 @@ class Store {
     }
 
     try {
-      this._replicator = new Replicator(this, this.options.replicationConcurrency)
+      this._replicator = new Replicator(this, this.options.replicationConcurrency, this.options.fetchEntryTimeout)
       // For internal backwards compatibility,
       // to be removed in future releases
       this._loader = this._replicator

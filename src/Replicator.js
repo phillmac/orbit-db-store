@@ -17,8 +17,12 @@ const uniqueValues = (res, val) => {
 const batchSize = 1
 
 class Replicator extends EventEmitter {
-  constructor (store, concurrency) {
+  constructor (store, concurrency, fetchEntryTimeout) {
+    if (typeof fetchEntryTimeout === 'undefined') {
+      throw new Error('fetchEntriesTimeout must be defined')
+    }
     super()
+    this._fetchEntryTimeout = fetchEntryTimeout
     this._store = store
     this._fetching = {}
     this._stats = {
@@ -165,7 +169,7 @@ class Replicator extends EventEmitter {
     this._stats.tasksStarted += 1
 
     const exclude = []
-    const log = await Log.fromEntryHash(this._store._ipfs, this._store.identity, hash, { logId: this._store._oplog.id, access: this._store.access, length: batchSize, exclude })
+    const log = await Log.fromEntryHash(this._store._ipfs, this._store.identity, hash, { logId: this._store._oplog.id, access: this._store.access, timeout: this._fetchEntryTimeout, length: batchSize, exclude })
     this._buffer.push(log)
 
     const latest = log.values[0]
