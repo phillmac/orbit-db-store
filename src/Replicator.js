@@ -166,6 +166,7 @@ class Replicator extends EventEmitter {
 
     this._fetching[hash] = hash
     this.emit('load.added', entry)
+    consile.log('Emiited load.added')
     this._stats.tasksStarted += 1
 
     const exclude = []
