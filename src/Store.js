@@ -10,6 +10,7 @@ const Entry = Log.Entry
 const Index = require('./Index')
 const Replicator = require('./Replicator')
 const ReplicationInfo = require('./replication-info')
+const { EventEmitter } = require('events')
 
 const Logger = require('logplease')
 const logger = Logger.create('orbit-db.store', { color: Logger.Colors.Blue })
@@ -24,22 +25,6 @@ const DefaultOptions = {
   replicationConcurrency: 128,
   syncLocal: false,
   sortFn: undefined
-}
-
-class EventEmitter extends require('events').EventEmitter {
-  constructor (db, parent, ...args) {
-    super(...args)
-    this._db = db
-    this._parent = parent
-  }
-
-  emit (type, ...args) {
-    super.emit(type, ...args)
-    if (this._parent && typeof this._parent.emit === 'function') {
-      this._parent.emit(type, this._db.address.toString(), ...args)
-    } else {
-    }
-  }
 }
 
 class Store {
