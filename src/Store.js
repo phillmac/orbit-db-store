@@ -133,7 +133,6 @@ class Store {
       logger.error('Store Error:', e)
     }
     this.events.on('replicate.progress', (address, hash, entry, progress, have) => {
-        console.dir({address, hash, entry, progress, have})
       this._procEntry(entry)
     })
     this.events.on('write', (address, entry, heads) => {
@@ -540,14 +539,16 @@ class Store {
   }
 
   _procEntry (entry) {
-    var { payload, hash } = entry
-    var { op } = payload
-    if (op) {
-      this.events.emit(`log.op.${op}`, this.address.toString(), hash, payload)
-    } else {
-      this.events.emit('log.op.none', this.address.toString(), hash, payload)
+    if (entry.payload) {
+      var { payload, hash } = entry
+      var { op } = payload
+      if (op) {
+        this.events.emit(`log.op.${op}`, this.address.toString(), hash, payload)
+      } else {
+        this.events.emit('log.op.none', this.address.toString(), hash, payload)
+      }
+      this.events.emit('log.op', op, this.address.toString(), hash, payload)
     }
-    this.events.emit('log.op', op, this.address.toString(), hash, payload)
   }
 
   _onStartProgress (hash, entry, progress, total) {
