@@ -132,7 +132,7 @@ class Store {
     } catch (e) {
       logger.error('Store Error:', e)
     }
-    this.events.on('replicated.progress', (address, hash, entry, progress, have) => {
+    this.events.on('replicate.progress', (address, hash, entry, progress, have) => {
       this._procEntry(entry)
     })
     this.events.on('write', (address, entry, heads) => {
