@@ -90,7 +90,6 @@ class Store {
       // to be removed in future releases
       this._loader = this._replicator
       this._replicator.on('load.added', (entry) => {
-        console.dir({ type: 'load.added', entry })
         // Update the latest entry state (latest is the entry with largest clock time)
         this._replicationStatus.queued++
         this._recalculateReplicationMax(entry.clock ? entry.clock.time : 0)
