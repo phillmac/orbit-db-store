@@ -539,7 +539,7 @@ class Store {
   }
 
   _procEntry (entry) {
-    if (entry.payload) {
+    if (entry && entry.payload) {
       var { payload, hash } = entry
       var { op } = payload
       if (op) {
