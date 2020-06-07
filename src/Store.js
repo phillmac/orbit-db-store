@@ -133,6 +133,7 @@ class Store {
       logger.error('Store Error:', e)
     }
     this.events.on('replicate.progress', (address, hash, entry, progress, have) => {
+        console.dir({address, hash, entry, progress, have})
       this._procEntry(entry)
     })
     this.events.on('write', (address, entry, heads) => {
