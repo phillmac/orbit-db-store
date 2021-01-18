@@ -3,7 +3,6 @@
 const path = require('path')
 const Readable = require('readable-stream')
 const toStream = require('it-to-stream')
-const EventEmitter = require('events').EventEmitter
 const mapSeries = require('p-each-series')
 const { default: PQueue } = require('p-queue')
 const Log = require('ipfs-log')
